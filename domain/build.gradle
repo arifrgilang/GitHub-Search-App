@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+
+    implementation domainDependencies.rxJava
+    implementation domainDependencies.javaxInject
+
+    testImplementation domainDependencies.junit
+    testImplementation domainDependencies.mockito
+    testImplementation appDependencies.powerMock
+    testImplementation appDependencies.powerMockModule
+    testImplementation appDependencies.powerMockApi
+}

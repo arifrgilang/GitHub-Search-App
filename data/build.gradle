@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
@@ -10,13 +10,13 @@ android {
     compileSdk globalConfig.getAt("compileSdkVersion")
 
     defaultConfig {
-        applicationId globalConfig.getAt("applicationId")
         minSdk globalConfig.getAt("minSdkVersion")
         targetSdk globalConfig.getAt("targetSdkVersion")
         versionCode globalConfig.getAt("versionCode")
         versionName globalConfig.getAt("versionName")
 
         testInstrumentationRunner globalConfig.getAt("testInstrumentationRunner")
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -35,32 +35,27 @@ android {
 }
 
 dependencies {
-    def appDependencies = rootProject.ext.appDependencies
+    def dataDependencies = rootProject.ext.dataDependencies
 
-    implementation project(':data')
     implementation project(':domain')
 
-    implementation appDependencies.coreKtx
-    implementation appDependencies.appCompat
-    implementation appDependencies.material
-    implementation appDependencies.constraintLayout
-    implementation appDependencies.glide
-    implementation appDependencies.circularImageView
-    implementation appDependencies.swipeRefreshLayout
-    implementation appDependencies.timber
-    implementation appDependencies.dagger
-    implementation appDependencies.rxJava
-    implementation appDependencies.rxAndroid
+    implementation dataDependencies.dagger
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.gson
+    implementation dataDependencies.okHttp
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxAndroid
+    implementation dataDependencies.roomKtx
+    implementation dataDependencies.roomRuntime
 
-    annotationProcessor appDependencies.daggerCompiler
+    annotationProcessor dataDependencies.daggerCompiler
+//    annotationProcessor dataDependencies.roomCompiler
 
-    kapt appDependencies.glideCompiler
+    kapt dataDependencies.roomKapt
 
-    testImplementation appDependencies.junit
-    testImplementation appDependencies.mockito
+    testImplementation dataDependencies.junit
+    testImplementation dataDependencies.mockito
     testImplementation appDependencies.powerMock
     testImplementation appDependencies.powerMockModule
     testImplementation appDependencies.powerMockApi
-    androidTestImplementation appDependencies.androidJunit
-    androidTestImplementation appDependencies.espresso
 }
