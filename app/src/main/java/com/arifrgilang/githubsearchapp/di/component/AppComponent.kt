@@ -6,7 +6,7 @@
  *
  */
 
-package com.arifrgilang.githubsearchapp.di
+package com.arifrgilang.githubsearchapp.di.component
 
 import com.arifrgilang.githubsearchapp.di.module.AppModule
 import dagger.Component
