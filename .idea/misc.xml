@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AnstudProjects/GitHubSearchApp/app/src/main/res/drawable/bg_search.xml" value="0.119" />
         <entry key="..\:/AnstudProjects/GitHubSearchApp/app/src/main/res/layout/activity_main.xml" value="0.20052083333333334" />
+        <entry key="..\:/AnstudProjects/GitHubSearchApp/app/src/main/res/layout/activity_search_user.xml" value="0.2" />
       </map>
     </option>
   </component>

@@ -9,7 +9,7 @@
 package com.arifrgilang.githubsearchapp
 
 import android.app.Application
-import com.arifrgilang.githubsearchapp.di.AppComponent
+import com.arifrgilang.githubsearchapp.di.component.AppComponent
 import com.arifrgilang.githubsearchapp.di.DaggerAppComponent
 import com.arifrgilang.githubsearchapp.di.module.AppModule
 import timber.log.Timber
