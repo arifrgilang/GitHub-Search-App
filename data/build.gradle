@@ -20,7 +20,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com/\""
+        }
         release {
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -31,6 +35,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    kapt {
+        generateStubs = true
     }
 }
 
@@ -48,7 +55,7 @@ dependencies {
     implementation dataDependencies.roomKtx
     implementation dataDependencies.roomRuntime
 
-    annotationProcessor dataDependencies.daggerCompiler
+    kapt dataDependencies.daggerCompiler
 //    annotationProcessor dataDependencies.roomCompiler
 
     kapt dataDependencies.roomKapt

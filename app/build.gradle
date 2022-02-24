@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -52,8 +55,7 @@ dependencies {
     implementation appDependencies.rxJava
     implementation appDependencies.rxAndroid
 
-    annotationProcessor appDependencies.daggerCompiler
-
+    kapt appDependencies.daggerCompiler
     kapt appDependencies.glideCompiler
 
     testImplementation appDependencies.junit
