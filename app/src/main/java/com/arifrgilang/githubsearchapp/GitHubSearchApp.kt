@@ -9,8 +9,8 @@
 package com.arifrgilang.githubsearchapp
 
 import android.app.Application
-import com.arifrgilang.githubsearchapp.di.component.AppComponent
 import com.arifrgilang.githubsearchapp.di.DaggerAppComponent
+import com.arifrgilang.githubsearchapp.di.component.AppComponent
 import com.arifrgilang.githubsearchapp.di.module.AppModule
 import timber.log.Timber
 
@@ -18,7 +18,7 @@ import timber.log.Timber
  * @author Arif R Gilang P (arif.rhizky@dana.id)
  * @version GitHubSearchApp, v 2.0 2/24/2022 11:15 AM by Arif R Gilang P
  */
-class GitHubSearchApp: Application() {
+class GitHubSearchApp : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -35,7 +35,7 @@ class GitHubSearchApp: Application() {
     }
 
     private fun initializeTimber() {
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
     }

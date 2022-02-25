@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-
 /**
  * Created by arifrgilang on 4/14/2021
  */
-abstract class BaseBindingActivity<T : ViewDataBinding> : AppCompatActivity(){
+abstract class BaseBindingActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     @LayoutRes
     protected abstract fun contentView(): Int

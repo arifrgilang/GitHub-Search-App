@@ -8,7 +8,6 @@
 
 package com.arifrgilang.githubsearchapp.searchuser
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.arifrgilang.githubsearchapp.R
 import com.arifrgilang.githubsearchapp.base.BaseBindingActivity

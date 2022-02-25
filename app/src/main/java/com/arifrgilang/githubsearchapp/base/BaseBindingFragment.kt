@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-
 /**
  * Created by arifrgilang on 4/14/2021
  */
@@ -25,8 +24,8 @@ abstract class BaseBindingFragment<T : ViewDataBinding> : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View?
-    {
+        savedInstanceState: Bundle?
+    ): View? {
         setupData(savedInstanceState)
         return DataBindingUtil.inflate<T>(inflater, contentView(), container, false)
             .apply { binding = this }.root

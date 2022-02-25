@@ -7,16 +7,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-
 /**
  * Created by arifrgilang on 4/14/2021
  */
 abstract class BaseRecyclerAdapter<
-        Model,
-        VB: ViewDataBinding,
-        VH : BaseRecyclerAdapter<Model, VB, VH>.BaseViewHolder>(
+    Model,
+    VB : ViewDataBinding,
+    VH : BaseRecyclerAdapter<Model, VB, VH>.BaseViewHolder>(
     protected var context: Context?
 ) : RecyclerView.Adapter<VH>() {
+
     private var modelList = mutableListOf<Model>()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
     private var recyclerCallback: AdapterOnClick? = null
@@ -37,7 +37,7 @@ abstract class BaseRecyclerAdapter<
 
     protected abstract fun getResLayout(type: Int): Int
 
-    fun setOnItemClickListener(listener: AdapterOnClick){
+    fun setOnItemClickListener(listener: AdapterOnClick) {
         recyclerCallback = listener
     }
 
@@ -68,11 +68,13 @@ abstract class BaseRecyclerAdapter<
         notifyDataSetChanged()
     }
 
-    abstract inner class BaseViewHolder (val view: VB): RecyclerView.ViewHolder(view.root) {
+    abstract inner class BaseViewHolder(val view: VB) : RecyclerView.ViewHolder(view.root) {
+
         abstract fun onBind(model: Model)
     }
 
     interface AdapterOnClick {
+
         fun onRecyclerItemClicked(extra: String)
     }
 }

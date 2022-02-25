@@ -22,13 +22,15 @@ import javax.inject.Inject
  */
 class SearchUserAdapter @Inject constructor(
     context: Context
-): BaseRecyclerAdapter<UserModel, ItemUserBinding, SearchUserAdapter.ViewHolder>(context) {
+) : BaseRecyclerAdapter<UserModel, ItemUserBinding, SearchUserAdapter.ViewHolder>(context) {
+
     override fun getResLayout(type: Int): Int = R.layout.item_user
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(initViewBinding(viewType, parent))
 
-    inner class ViewHolder(itemView: ItemUserBinding): BaseViewHolder(itemView) {
+    inner class ViewHolder(itemView: ItemUserBinding) : BaseViewHolder(itemView) {
+
         override fun onBind(model: UserModel) {
             view.user = model
         }

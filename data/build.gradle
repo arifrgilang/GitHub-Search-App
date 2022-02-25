@@ -62,7 +62,7 @@ dependencies {
 
     testImplementation dataDependencies.junit
     testImplementation dataDependencies.mockito
-    testImplementation appDependencies.powerMock
-    testImplementation appDependencies.powerMockModule
-    testImplementation appDependencies.powerMockApi
+    testImplementation dataDependencies.powerMock
+    testImplementation dataDependencies.powerMockModule
+    testImplementation dataDependencies.powerMockApi
 }
