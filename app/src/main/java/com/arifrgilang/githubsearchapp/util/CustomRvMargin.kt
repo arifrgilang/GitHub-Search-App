@@ -5,7 +5,6 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-
 /**
  * Created by arifrgilang on 4/25/2021
  */
@@ -13,9 +12,10 @@ class CustomRvMargin(
     private val context: Context,
     private val spaceHeight: Int,
     private val type: String
-) : RecyclerView.ItemDecoration(){
+) : RecyclerView.ItemDecoration() {
 
-    companion object{
+    companion object {
+
         val LINEAR_HORIZONTAL = "linear_horizontal"
         val LINEAR_VERTICAL = "linear_vertical"
         val LINEAR_VERTICAL_REVERSED = "linear_vertical_reversed"
@@ -29,10 +29,10 @@ class CustomRvMargin(
         state: RecyclerView.State
     ) {
         val customMargin = dpToPx(context, spaceHeight)
-        when(type){
+        when (type) {
             LINEAR_HORIZONTAL -> {
-                with(outRect){
-                    if(parent.getChildAdapterPosition(view) == 0){
+                with(outRect) {
+                    if (parent.getChildAdapterPosition(view) == 0) {
                         left = customMargin
                     }
                     top = customMargin
@@ -40,9 +40,10 @@ class CustomRvMargin(
                     bottom = customMargin
                 }
             }
+
             LINEAR_VERTICAL -> {
-                with(outRect){
-                    if(parent.getChildAdapterPosition(view) == 0){
+                with(outRect) {
+                    if (parent.getChildAdapterPosition(view) == 0) {
                         top = customMargin
                     }
                     left = customMargin
@@ -50,9 +51,10 @@ class CustomRvMargin(
                     bottom = customMargin
                 }
             }
+
             LINEAR_VERTICAL_REVERSED -> {
-                with(outRect){
-                    if(parent.getChildAdapterPosition(view) == (parent.adapter?.itemCount?.minus(1))){
+                with(outRect) {
+                    if (parent.getChildAdapterPosition(view) == (parent.adapter?.itemCount?.minus(1))) {
                         top = customMargin
                     }
                     left = customMargin
@@ -60,12 +62,13 @@ class CustomRvMargin(
                     bottom = customMargin
                 }
             }
+
             GRID_2 -> {
-                with(outRect){
-                    if(parent.getChildAdapterPosition(view) in 0..1){
+                with(outRect) {
+                    if (parent.getChildAdapterPosition(view) in 0..1) {
                         top = customMargin
                     }
-                    if(parent.getChildAdapterPosition(view) % 2 == 0){
+                    if (parent.getChildAdapterPosition(view) % 2 == 0) {
                         left = customMargin
                         right = customMargin / 2
                     } else {

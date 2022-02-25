@@ -12,7 +12,6 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
-
 /**
  * Created by arifrgilang on 4/24/2021
  */
@@ -28,7 +27,7 @@ private fun getProgressDrawable(context: Context): CircularProgressDrawable {
     }
 }
 
-fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable){
+fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable) {
     val options = RequestOptions()
         .placeholder(progressDrawable)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -44,8 +43,9 @@ fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable
 }
 
 @BindingAdapter("android:imageUrl")
-fun loadImage(view: ImageView, url: String?){
-    view.loadImage(url,
+fun loadImage(view: ImageView, url: String?) {
+    view.loadImage(
+        url,
         getProgressDrawable(view.context)
     )
 }

@@ -1,6 +1,38 @@
 plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    def globalConfig = rootProject.extensions.getByName("ext")
+
+    compileSdk globalConfig.getAt("compileSdkVersion")
+
+    defaultConfig {
+        minSdk globalConfig.getAt("minSdkVersion")
+        targetSdk globalConfig.getAt("targetSdkVersion")
+        versionCode globalConfig.getAt("versionCode")
+        versionName globalConfig.getAt("versionName")
+
+        testInstrumentationRunner globalConfig.getAt("testInstrumentationRunner")
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug {
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 java {
@@ -13,10 +45,12 @@ dependencies {
 
     implementation domainDependencies.rxJava
     implementation domainDependencies.javaxInject
+    implementation domainDependencies.rxAndroid
+    implementation domainDependencies.timber
 
     testImplementation domainDependencies.junit
     testImplementation domainDependencies.mockito
-    testImplementation appDependencies.powerMock
-    testImplementation appDependencies.powerMockModule
-    testImplementation appDependencies.powerMockApi
+    testImplementation domainDependencies.powerMock
+    testImplementation domainDependencies.powerMockModule
+    testImplementation domainDependencies.powerMockApi
 }
