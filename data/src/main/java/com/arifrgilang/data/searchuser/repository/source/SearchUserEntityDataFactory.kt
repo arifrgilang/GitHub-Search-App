@@ -19,16 +19,17 @@ import javax.inject.Inject
  * @version SearchUserDataFactory, v 2.0 25/02/22 11.15 by Arif R Gilang P
  */
 class SearchUserEntityDataFactory @Inject constructor(
-    private val persistenceEntityData: PersistenceSearchUserEntityData,
+//    private val persistenceEntityData: PersistenceSearchUserEntityData,
     private val mockEntityData: MockSearchUserEntityData,
     private val networkEntityData: NetworkSearchUserEntityData
 ) {
 
     fun createSearchUserEntityData(source: SourceType): SearchUserEntityData =
         when (source) {
-            SourceType.PERSISTENCE -> persistenceEntityData
             SourceType.MOCK -> mockEntityData
             SourceType.NETWORK -> networkEntityData
+            //            SourceType.PERSISTENCE -> persistenceEntityData
+            else -> networkEntityData
         }
 
 }

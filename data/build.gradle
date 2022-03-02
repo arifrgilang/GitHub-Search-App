@@ -55,6 +55,7 @@ dependencies {
     implementation dataDependencies.roomKtx
     implementation dataDependencies.roomRuntime
     implementation dataDependencies.mmkv
+    implementation dataDependencies.retrofitRxJava
 //    implementation dataDependencies.daggerAndroid
 //    implementation dataDependencies.daggerAndroidSupport
 //    implementation dataDependencies.arrow

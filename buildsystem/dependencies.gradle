@@ -70,6 +70,7 @@ ext {
             daggerAndroidSupport : "com.google.dagger:dagger-android-support:${daggerVersion}",
             daggerAndroid        : "com.google.dagger:dagger-android:${daggerVersion}",
             retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitRxJava        : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             gson                 : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             okHttp               : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
             rxJava               : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
