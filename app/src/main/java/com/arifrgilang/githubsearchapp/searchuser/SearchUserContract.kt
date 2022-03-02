@@ -10,6 +10,7 @@ package com.arifrgilang.githubsearchapp.searchuser
 
 import com.arifrgilang.githubsearchapp.base.BasePresenter
 import com.arifrgilang.githubsearchapp.base.BaseView
+import com.arifrgilang.githubsearchapp.searchuser.model.UserModel
 
 /**
  * @author Arif R Gilang P (arif.rhizky@dana.id)
@@ -18,9 +19,12 @@ import com.arifrgilang.githubsearchapp.base.BaseView
 interface SearchUserContract {
 
     interface Presenter : BasePresenter {
-
+        fun setViewPresenter(viewPresenter: SearchUserContract.View)
         fun searchUsers(username: String)
     }
 
-    interface View : BaseView
+    interface View : BaseView {
+
+        fun setUserResult(users: List<UserModel>)
+    }
 }

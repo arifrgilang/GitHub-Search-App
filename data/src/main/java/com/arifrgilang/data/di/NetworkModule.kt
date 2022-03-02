@@ -10,12 +10,14 @@ package com.arifrgilang.data.di
 
 import android.content.Context
 import com.arifrgilang.data.BuildConfig
+import com.arifrgilang.data.network.GitHubAPI
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -68,7 +70,25 @@ class NetworkModule {
     ): Retrofit.Builder =
         Retrofit.Builder()
             .baseUrl(baseUrl)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+
+    @Provides
+    @Singleton
+    fun provideGitHubAPI(
+        httpClientBuilder: OkHttpClient.Builder,
+        retrofitBuilder: Retrofit.Builder
+    ): GitHubAPI =
+        provideService(GitHubAPI::class.java, httpClientBuilder, retrofitBuilder)
+
+    private fun <S> provideService(
+        serviceClass: Class<S>,
+        httpClientBuilder: OkHttpClient.Builder,
+        retrofitBuilder: Retrofit.Builder
+    ): S {
+        retrofitBuilder.client(httpClientBuilder.build())
+        return retrofitBuilder.build().create(serviceClass)
+    }
 
     private val DATE_FORMAT = "yyyy-MM-dd'T'hh:mm:ssZ"
     private val DEFAULT_TIME_OUT: Long = 30L * 1000

@@ -24,7 +24,7 @@ class GetUsersByUsername @Inject constructor(
 
     data class Params(val username: String, val refresh: Boolean)
 
-    override fun buildUseCaseObservable(params: Params): Observable<List<User>> {
+    override fun buildUseCase(params: Params): Observable<List<User>> {
         return searchUserRepository.searchUsers(params.username, params.refresh)
     }
 }
