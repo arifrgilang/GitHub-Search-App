@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arifrgilang.githubsearchapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".GitHubSearchApp"
         android:allowBackup="true"

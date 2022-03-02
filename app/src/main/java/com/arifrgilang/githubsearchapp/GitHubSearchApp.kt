@@ -9,9 +9,10 @@
 package com.arifrgilang.githubsearchapp
 
 import android.app.Application
-import com.arifrgilang.githubsearchapp.di.DaggerAppComponent
-import com.arifrgilang.githubsearchapp.di.component.AppComponent
-import com.arifrgilang.githubsearchapp.di.module.AppModule
+import com.arifrgilang.data.di.NetworkModule
+import com.arifrgilang.githubsearchapp.di.component.ApplicationComponent
+import com.arifrgilang.githubsearchapp.di.component.DaggerApplicationComponent
+import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
 import timber.log.Timber
 
 /**
@@ -20,17 +21,23 @@ import timber.log.Timber
  */
 class GitHubSearchApp : Application() {
 
-    lateinit var appComponent: AppComponent
+    lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
         initializeInjector()
         initializeTimber()
+//        initializeMMKV()
     }
 
+//    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+//        return DaggerAppComponent.factory().create(this)
+//    }
+
     private fun initializeInjector() {
-        appComponent = DaggerAppComponent.builder()
-            .appModule(AppModule(this))
+        applicationComponent = DaggerApplicationComponent.builder()
+            .applicationModule(ApplicationModule(this))
+            .networkModule(NetworkModule())
             .build()
     }
 
@@ -39,5 +46,9 @@ class GitHubSearchApp : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
+
+//    private fun initializeMMKV() {
+//        MMKV.initialize(this)
+//    }
 
 }

@@ -36,9 +36,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    kapt {
-        generateStubs = true
-    }
+//    kapt {
+//        generateStubs = true
+//    }
 }
 
 dependencies {
@@ -54,8 +54,13 @@ dependencies {
     implementation dataDependencies.rxAndroid
     implementation dataDependencies.roomKtx
     implementation dataDependencies.roomRuntime
+    implementation dataDependencies.mmkv
+//    implementation dataDependencies.daggerAndroid
+//    implementation dataDependencies.daggerAndroidSupport
+//    implementation dataDependencies.arrow
 
     kapt dataDependencies.daggerCompiler
+//    kapt dataDependencies.daggerAndroidProcessor
 //    annotationProcessor dataDependencies.roomCompiler
 
     kapt dataDependencies.roomKapt

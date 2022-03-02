@@ -6,9 +6,10 @@
  *
  */
 
-package com.arifrgilang.data
+package com.arifrgilang.data.di
 
 import android.content.Context
+import com.arifrgilang.data.BuildConfig
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -27,9 +28,11 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
     @Provides
+    @Singleton
     fun provideBaseURL() = BuildConfig.BASE_URL
 
     @Provides
+    @Singleton
     fun provideHttpLoggingInterceptor(
     ): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
