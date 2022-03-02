@@ -35,9 +35,9 @@ android {
     buildFeatures {
         dataBinding true
     }
-    kapt {
-        generateStubs = true
-    }
+//    kapt {
+//        generateStubs = true
+//    }
 }
 
 dependencies {
@@ -57,7 +57,14 @@ dependencies {
     implementation appDependencies.dagger
     implementation appDependencies.rxJava
     implementation appDependencies.rxAndroid
+    implementation appDependencies.mmkv
+    implementation appDependencies.gson
+    implementation appDependencies.retrofit
+    implementation appDependencies.okHttp
+    //    implementation appDependencies.daggerAndroid
+//    implementation appDependencies.daggerAndroidSupport
 
+//    kapt appDependencies.daggerAndroidProcessor
     kapt appDependencies.daggerCompiler
     kapt appDependencies.glideCompiler
 

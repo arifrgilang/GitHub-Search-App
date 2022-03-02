@@ -9,21 +9,22 @@
 package com.arifrgilang.domain.searchuser.repository
 
 import com.arifrgilang.domain.searchuser.model.User
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
  * @author Arif R Gilang P (arif.rhizky@dana.id)
  * @version UserRepository, v 2.0 2/24/2022 3:29 PM by Arif R Gilang P
  */
-interface UserRepository {
+interface SearchUserRepository {
 
     fun searchUsers(
         username: String,
         refresh: Boolean
-    ): Single<List<User>>
+    ): Observable<List<User>>
 
     fun getUser(
         username: String,
         refresh: Boolean
-    ): Single<User>
+    ): Observable<User>
 }
