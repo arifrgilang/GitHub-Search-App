@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".searchuser.SearchUserActivity">
+
+        <EditText
+            android:id="@+id/etSearchUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search GitHub Users"
+
+            android:background="@drawable/bg_search"
+            android:drawableStart="@drawable/ic_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:drawablePadding="8dp"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSearchUsers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_user"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tvSearchNoItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:text="No user found"/>
+            </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</layout>

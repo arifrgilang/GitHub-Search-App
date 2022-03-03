@@ -29,6 +29,11 @@ ext {
     javaxInjectVersion = '1'
     roomVersion = '2.3.0'
     timberVersion = '4.7.1'
+    mmkvVersion = '1.2.12'
+    arrowVersion = '1.0.0'
+    mockitoKotlinVersion = '2.2.0'
+    mockkVersion = '1.12.2'
+    archCoreTestingVersion = '2.1.0'
 
     appDependencies = [
             coreKtx             : "androidx.core:core-ktx:${coreKtxVersion}",
@@ -45,19 +50,32 @@ ext {
             timber              : "com.jakewharton.timber:timber:${timberVersion}",
             daggerCompiler      : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger              : "com.google.dagger:dagger:${daggerVersion}",
+            daggerAndroidSupport: "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroid       : "com.google.dagger:dagger-android:${daggerVersion}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
             rxJava              : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid           : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             mockito             : "org.mockito:mockito-core:${mockitoVersion}",
             mockitoAndroid      : "org.mockito:mockito-core:${mockitoVersion}",
             powerMock           : "org.powermock:powermock-core:${powerMockVersion}",
             powerMockModule     : "org.powermock:powermock-module-junit4:${powerMockVersion}",
-            powerMockApi        : "org.powermock:powermock-api-mockito2:${powerMockVersion}"
+            powerMockApi        : "org.powermock:powermock-api-mockito2:${powerMockVersion}",
+            mmkv                : "com.tencent:mmkv:${mmkvVersion}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            gson                 : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            okHttp               : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            mockk                : "io.mockk:mockk:${mockkVersion}",
+            archCoreTesting      : "androidx.arch.core:core-testing:${archCoreTestingVersion}"
     ]
 
     dataDependencies = [
             daggerCompiler       : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
             dagger               : "com.google.dagger:dagger:${daggerVersion}",
-            retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            daggerAndroidSupport : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroid        : "com.google.dagger:dagger-android:${daggerVersion}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitRxJava        : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             gson                 : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             okHttp               : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
             rxJava               : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
@@ -69,16 +87,24 @@ ext {
             mockito              : "org.mockito:mockito-core:${mockitoVersion}",
             powerMock            : "org.powermock:powermock-core:${powerMockVersion}",
             powerMockModule      : "org.powermock:powermock-module-junit4:${powerMockVersion}",
-            powerMockApi         : "org.powermock:powermock-api-mockito2:${powerMockVersion}"
+            powerMockApi         : "org.powermock:powermock-api-mockito2:${powerMockVersion}",
+            mmkv                 : "com.tencent:mmkv:${mmkvVersion}",
+            arrow                : "com.fernandocejas:arrow:${arrowVersion}",
+            mockk                : "io.mockk:mockk:${mockkVersion}"
     ]
 
     domainDependencies = [
             javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             junit          : "junit:junit:${junitVersion}",
+            timber         : "com.jakewharton.timber:timber:${timberVersion}",
             mockito        : "org.mockito:mockito-core:${mockitoVersion}",
             powerMock      : "org.powermock:powermock-core:${powerMockVersion}",
             powerMockModule: "org.powermock:powermock-module-junit4:${powerMockVersion}",
-            powerMockApi   : "org.powermock:powermock-api-mockito2:${powerMockVersion}"
+            powerMockApi   : "org.powermock:powermock-api-mockito2:${powerMockVersion}",
+            mockitoKotlin  : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
+            mockk          : "io.mockk:mockk:${mockkVersion}",
+            archCoreTesting      : "androidx.arch.core:core-testing:${archCoreTestingVersion}"
     ]
 }

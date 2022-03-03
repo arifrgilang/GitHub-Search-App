@@ -1,1 +1,0 @@
-C:\AnstudProjects\GitHubSearchApp\domain\build\classes\kotlin\main\com\arifrgilang\domain\MyClass.class

@@ -20,7 +20,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com/\""
+        }
         release {
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -32,6 +36,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+//    kapt {
+//        generateStubs = true
+//    }
 }
 
 dependencies {
@@ -47,15 +54,16 @@ dependencies {
     implementation dataDependencies.rxAndroid
     implementation dataDependencies.roomKtx
     implementation dataDependencies.roomRuntime
+    implementation dataDependencies.mmkv
+    implementation dataDependencies.retrofitRxJava
 
-    annotationProcessor dataDependencies.daggerCompiler
-//    annotationProcessor dataDependencies.roomCompiler
-
+    kapt dataDependencies.daggerCompiler
     kapt dataDependencies.roomKapt
 
+    testImplementation dataDependencies.mockk
     testImplementation dataDependencies.junit
     testImplementation dataDependencies.mockito
-    testImplementation appDependencies.powerMock
-    testImplementation appDependencies.powerMockModule
-    testImplementation appDependencies.powerMockApi
+    testImplementation dataDependencies.powerMock
+    testImplementation dataDependencies.powerMockModule
+    testImplementation dataDependencies.powerMockApi
 }
