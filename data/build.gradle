@@ -56,16 +56,11 @@ dependencies {
     implementation dataDependencies.roomRuntime
     implementation dataDependencies.mmkv
     implementation dataDependencies.retrofitRxJava
-//    implementation dataDependencies.daggerAndroid
-//    implementation dataDependencies.daggerAndroidSupport
-//    implementation dataDependencies.arrow
 
     kapt dataDependencies.daggerCompiler
-//    kapt dataDependencies.daggerAndroidProcessor
-//    annotationProcessor dataDependencies.roomCompiler
-
     kapt dataDependencies.roomKapt
 
+    testImplementation dataDependencies.mockk
     testImplementation dataDependencies.junit
     testImplementation dataDependencies.mockito
     testImplementation dataDependencies.powerMock

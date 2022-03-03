@@ -10,6 +10,7 @@ package com.arifrgilang.githubsearchapp.di.module
 
 import android.content.Context
 import com.arifrgilang.domain.searchuser.interactor.GetUsersByUsername
+import com.arifrgilang.githubsearchapp.di.PerActivity
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserActivity
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserContract
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserPresenter
@@ -23,25 +24,24 @@ import javax.inject.Singleton
  * @version PresentationModule, v 2.0 02/03/22 12.01 by Arif R Gilang P
  */
 @Module
-class PresentationModule {
+class SearchUserModule(
+//    private val view: SearchUserContract.View
+) {
 
     @Singleton
     @Provides
     fun provideSearchUserAdapter(
         context: Context
-    ): SearchUserAdapter =
-        SearchUserAdapter(context)
+    ): SearchUserAdapter = SearchUserAdapter(context)
 
     @Singleton
     @Provides
     fun provideSearchUsersView(
-    ): SearchUserContract.View =
-        SearchUserActivity()
+    ): SearchUserContract.View = SearchUserActivity()
 
     @Singleton
     @Provides
     fun provideSearchUsersPresenter(
-        getSearchUserByUsername: GetUsersByUsername
-    ): SearchUserContract.Presenter =
-        SearchUserPresenter(getSearchUserByUsername)
+        presenter: SearchUserPresenter
+    ): SearchUserContract.Presenter = presenter
 }

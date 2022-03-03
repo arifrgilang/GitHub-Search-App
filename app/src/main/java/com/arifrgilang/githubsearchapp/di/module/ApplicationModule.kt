@@ -16,6 +16,7 @@ import com.arifrgilang.data.searchuser.repository.source.SearchUserEntityDataFac
 import com.arifrgilang.data.searchuser.repository.source.mock.MockSearchUserEntityData
 import com.arifrgilang.data.searchuser.repository.source.network.NetworkSearchUserEntityData
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
+import com.arifrgilang.githubsearchapp.di.PerActivity
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserActivity
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserContract
 import dagger.Module

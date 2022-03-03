@@ -48,6 +48,8 @@ dependencies {
     implementation domainDependencies.rxAndroid
     implementation domainDependencies.timber
 
+    testImplementation domainDependencies.archCoreTesting
+    testImplementation domainDependencies.mockk
     testImplementation domainDependencies.junit
     testImplementation domainDependencies.mockito
     testImplementation domainDependencies.powerMock

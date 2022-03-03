@@ -14,7 +14,6 @@ import com.arifrgilang.data.di.UseCaseModule
 import com.arifrgilang.githubsearchapp.di.component.ApplicationComponent
 import com.arifrgilang.githubsearchapp.di.component.DaggerApplicationComponent
 import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
-import com.arifrgilang.githubsearchapp.di.module.PresentationModule
 import timber.log.Timber
 
 /**
@@ -32,16 +31,11 @@ class GitHubSearchApp : Application() {
 //        initializeMMKV()
     }
 
-//    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-//        return DaggerAppComponent.factory().create(this)
-//    }
-
     private fun initializeInjector() {
         applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
             .networkModule(NetworkModule())
             .useCaseModule(UseCaseModule())
-            .presentationModule(PresentationModule())
             .build()
     }
 
