@@ -31,13 +31,8 @@ import org.junit.rules.TestRule
 class SearchUserPresenterTest {
 
     private val getUsersByUsername = mockk<GetUsersByUsername>()
-    private val view = mockk<SearchUserContract.View>()
-    private val presenter = spyk(SearchUserPresenter(getUsersByUsername))
-
-    @Before
-    fun setUp() {
-        presenter.setViewPresenter(view)
-    }
+    private val view = mockk<SearchUserContract.View>(relaxed = true)
+    private val presenter = spyk(SearchUserPresenter(view, getUsersByUsername))
 
     @Test
     fun `searchUsers shouldCall view#setUserResult when success`() {
@@ -53,14 +48,14 @@ class SearchUserPresenterTest {
         )
 
         every { getUsersByUsername.execute(any(), any(), any()) } answers {
-            secondArg<OnSuccessCallback<Boolean>>().invoke(true)
+            secondArg<OnSuccessCallback<List<User>>>().invoke(listUsers)
         }
 
         presenter.searchUsers("arifrgilang")
 
         verify {
             view.showProgress() //no answer found for this
-            view.setUserResult(listUsers.map { it.toModel() })
+            view.setUserResult(any())
             view.dismissProgress()
         }
     }

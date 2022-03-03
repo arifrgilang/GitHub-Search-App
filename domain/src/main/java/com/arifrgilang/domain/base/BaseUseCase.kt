@@ -31,10 +31,7 @@ import timber.log.Timber
  * @see CancellableUseCase
  * @see CompletableUseCase
  */
-abstract class BaseUseCase<Params, T> (
-    private val jobScheduler: Scheduler = Schedulers.io(),
-    private val postScheduler: Scheduler = AndroidSchedulers.mainThread()
-) {
+abstract class BaseUseCase<Params, T> () {
 
     private val disposable = CompositeDisposable()
 
@@ -72,8 +69,8 @@ abstract class BaseUseCase<Params, T> (
     ) {
         print("test")
         buildUseCase(params)
-            .subscribeOn(jobScheduler)
-            .observeOn(postScheduler)
+            .subscribeOn(UseCaseSchedulers.jobScheduler)
+            .observeOn(UseCaseSchedulers.postScheduler)
             .doOnDispose(onDispose)
             .subscribe({
                 onSuccess(it)
@@ -108,7 +105,7 @@ abstract class BaseUseCase<Params, T> (
         onDispose: Action = Action {}
     ) {
         buildUseCase(params)
-            .subscribeOn(jobScheduler)
+            .subscribeOn(UseCaseSchedulers.jobScheduler)
             .doOnDispose(onDispose)
             .subscribe({
                 onSuccess(it)

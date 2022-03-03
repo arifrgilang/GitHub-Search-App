@@ -12,12 +12,11 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.arifrgilang.data.di.UseCaseModule
+import com.arifrgilang.githubsearchapp.GitHubSearchApp
 import com.arifrgilang.githubsearchapp.R
 import com.arifrgilang.githubsearchapp.base.BaseBindingActivity
 import com.arifrgilang.githubsearchapp.databinding.ActivitySearchUserBinding
-import com.arifrgilang.githubsearchapp.di.component.DaggerApplicationComponent
-import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
+import com.arifrgilang.githubsearchapp.di.component.DaggerSearchUsersComponent
 import com.arifrgilang.githubsearchapp.di.module.SearchUserModule
 import com.arifrgilang.githubsearchapp.searchuser.adapter.SearchUserAdapter
 import com.arifrgilang.githubsearchapp.searchuser.model.UserModel
@@ -26,7 +25,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SearchUserActivity
-    : BaseBindingActivity<ActivitySearchUserBinding>(), SearchUserContract.View {
+    : BaseBindingActivity<ActivitySearchUserBinding>() {
 
     @Inject
     lateinit var rvAdapter: SearchUserAdapter
@@ -40,7 +39,7 @@ class SearchUserActivity
 
     override fun setupView() {
         initInjector()
-        presenter.setViewPresenter(this)
+//        presenter.setViewPresenter(this)
         initRecyclerView()
         binding.srlSearch.setOnRefreshListener {
             performSearchUser(refresh = true)
@@ -54,13 +53,40 @@ class SearchUserActivity
     }
 
     private fun initInjector() {
-        DaggerApplicationComponent.builder()
-            .applicationModule(ApplicationModule(application))
-            .searchUserModule(SearchUserModule())
-            .useCaseModule(UseCaseModule())
+        DaggerSearchUsersComponent.builder()
+            .applicationComponent((application as GitHubSearchApp).getApplicationComponent())
+            .searchUserModule(getSearchUserModule())
             .build()
             .inject(this)
     }
+
+    private fun getSearchUserModule() = SearchUserModule(object : SearchUserContract.View {
+        override fun setUserResult(users: List<UserModel>) {
+            if (users.isEmpty()) {
+                binding.tvSearchNoItem.isVisible = true
+                binding.rvSearchUsers.isVisible = false
+            } else {
+                binding.tvSearchNoItem.isVisible = false
+                binding.rvSearchUsers.isVisible = true
+                rvAdapter.clearAndNotify()
+                Timber.d("RESUlT: $users")
+                rvAdapter.insertAndNotify(users)
+            }
+        }
+
+        override fun showProgress() {
+            binding.srlSearch.isRefreshing = true
+        }
+
+        override fun dismissProgress() {
+            binding.srlSearch.isRefreshing = false
+        }
+
+        override fun onError(errorMessage: String?) {
+            Timber.e(errorMessage)
+        }
+
+    })
 
     private fun initRecyclerView() {
         binding.rvSearchUsers.apply {
@@ -83,31 +109,6 @@ class SearchUserActivity
             binding.tvSearchNoItem.isVisible = false
             presenter.searchUsers(searchQuery)
         }
-    }
-
-    override fun setUserResult(users: List<UserModel>) {
-        if (users.isEmpty()) {
-            binding.tvSearchNoItem.isVisible = true
-            binding.rvSearchUsers.isVisible = false
-        } else {
-            binding.tvSearchNoItem.isVisible = false
-            binding.rvSearchUsers.isVisible = true
-            rvAdapter.clearAndNotify()
-            Timber.d("RESUlT: $users")
-            rvAdapter.insertAndNotify(users)
-        }
-    }
-
-    override fun showProgress() {
-        binding.srlSearch.isRefreshing = true
-    }
-
-    override fun dismissProgress() {
-        binding.srlSearch.isRefreshing = false
-    }
-
-    override fun onError(errorMessage: String?) {
-        Timber.e(errorMessage)
     }
 
     override fun onDestroy() {

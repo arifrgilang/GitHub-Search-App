@@ -17,14 +17,9 @@ import javax.inject.Inject
  * @version SearchUserPresenter, v 2.0 2/24/2022 12:59 PM by Arif R Gilang P
  */
 class SearchUserPresenter @Inject constructor(
+    private val view: SearchUserContract.View,
     private val getUsersByUsername: GetUsersByUsername
 ) : SearchUserContract.Presenter {
-
-    lateinit var view: SearchUserContract.View
-
-    override fun setViewPresenter(viewPresenter: SearchUserContract.View) {
-        view = viewPresenter
-    }
 
     override fun searchUsers(username: String) {
         view.showProgress()

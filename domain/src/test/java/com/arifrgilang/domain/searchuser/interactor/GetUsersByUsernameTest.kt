@@ -8,7 +8,7 @@
 
 package com.arifrgilang.domain.searchuser.interactor
 
-import com.arifrgilang.domain.searchuser.interactor.MockUser.oneUser
+import com.arifrgilang.domain.searchuser.model.User
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
 import io.mockk.every
 import io.mockk.mockk
@@ -27,20 +27,27 @@ import org.junit.Test
  */
 class GetUsersByUsernameTest {
 
-    private var searchUserRepository = mockk<SearchUserRepository>()
-
+    private var searchUserRepository = mockk<SearchUserRepository>(relaxed = true)
     private var getUsersByUsername = GetUsersByUsername(searchUserRepository)
 
     @Before
     fun setUp() {
-        // Not working! Why?
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
-        RxJavaPlugins.setInitIoSchedulerHandler { Schedulers.trampoline() }
+        RxAndroidPlugins.setMainThreadSchedulerHandler { Schedulers.trampoline() }
+        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
     }
 
     @Test
     fun buildUseCaseObservable_shouldReturn_users() {
-        val userList = arrayListOf(oneUser)
+        val userList = arrayListOf(
+            User(
+                1,
+                "arifrgilang",
+                "Arif R Gilang",
+                "https://avatars.githubusercontent.com/u/36944464?v=4",
+                "Android Developer", 33, 134, "Bandung - Jatinangor",
+                "arifrgilang@gmail.com"
+            )
+        )
         //given
         every { searchUserRepository.searchUsers(any(), any()) } returns Observable.just(userList)
 
@@ -53,8 +60,6 @@ class GetUsersByUsernameTest {
 
     @After
     fun tearDown() {
-        RxAndroidPlugins.reset()
-        RxJavaPlugins.reset()
         getUsersByUsername.dispose()
     }
 

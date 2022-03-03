@@ -25,21 +25,15 @@ import javax.inject.Singleton
  */
 @Module
 class SearchUserModule(
-//    private val view: SearchUserContract.View
+    private val view: SearchUserContract.View
 ) {
 
-    @Singleton
-    @Provides
-    fun provideSearchUserAdapter(
-        context: Context
-    ): SearchUserAdapter = SearchUserAdapter(context)
-
-    @Singleton
+    @PerActivity
     @Provides
     fun provideSearchUsersView(
-    ): SearchUserContract.View = SearchUserActivity()
+    ): SearchUserContract.View = view
 
-    @Singleton
+    @PerActivity
     @Provides
     fun provideSearchUsersPresenter(
         presenter: SearchUserPresenter
