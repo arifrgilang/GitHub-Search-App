@@ -10,7 +10,6 @@ package com.arifrgilang.githubsearchapp.searchuser
 
 import com.arifrgilang.domain.searchuser.interactor.GetUsersByUsername
 import com.arifrgilang.githubsearchapp.searchuser.mapper.toModel
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 /**

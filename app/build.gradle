@@ -61,13 +61,12 @@ dependencies {
     implementation appDependencies.gson
     implementation appDependencies.retrofit
     implementation appDependencies.okHttp
-    //    implementation appDependencies.daggerAndroid
-//    implementation appDependencies.daggerAndroidSupport
 
-//    kapt appDependencies.daggerAndroidProcessor
     kapt appDependencies.daggerCompiler
     kapt appDependencies.glideCompiler
 
+    testImplementation appDependencies.archCoreTesting
+    testImplementation appDependencies.mockk
     testImplementation appDependencies.junit
     testImplementation appDependencies.mockito
     testImplementation appDependencies.powerMock

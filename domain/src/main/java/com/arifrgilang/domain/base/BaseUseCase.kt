@@ -31,7 +31,7 @@ import timber.log.Timber
  * @see CancellableUseCase
  * @see CompletableUseCase
  */
-abstract class BaseUseCase<Params, T>(
+abstract class BaseUseCase<Params, T> (
     private val jobScheduler: Scheduler = Schedulers.io(),
     private val postScheduler: Scheduler = AndroidSchedulers.mainThread()
 ) {
@@ -51,7 +51,7 @@ abstract class BaseUseCase<Params, T>(
         onSuccess: OnSuccessCallback<T>,
         onError: OnErrorCallback = {}
     ) {
-        execute(params, onSuccess, onError, null, { })
+        execute(params, onSuccess, onError, null) {}
     }
 
     fun execute(
@@ -60,7 +60,7 @@ abstract class BaseUseCase<Params, T>(
         onError: OnErrorCallback = {},
         onComplete: OnCompleteCallback = {}
     ) {
-        execute(params, onSuccess, onError, onComplete, { })
+        execute(params, onSuccess, onError, onComplete) {}
     }
 
     fun execute(
@@ -68,7 +68,7 @@ abstract class BaseUseCase<Params, T>(
         onSuccess: OnSuccessCallback<T>,
         onError: OnErrorCallback = {},
         onComplete: OnCompleteCallback? = {},
-        onDispose: Action = Action { }
+        onDispose: Action = Action {}
     ) {
         print("test")
         buildUseCase(params)
@@ -97,7 +97,7 @@ abstract class BaseUseCase<Params, T>(
         onSuccess: OnSuccessCallback<T>,
         onError: OnErrorCallback = {}
     ) {
-        executeInBackground(params, onSuccess, onError, null, { })
+        executeInBackground(params, onSuccess, onError, null) {}
     }
 
     fun executeInBackground(
@@ -105,7 +105,7 @@ abstract class BaseUseCase<Params, T>(
         onSuccess: OnSuccessCallback<T>,
         onError: OnErrorCallback = {},
         onComplete: OnCompleteCallback? = {},
-        onDispose: Action = Action { }
+        onDispose: Action = Action {}
     ) {
         buildUseCase(params)
             .subscribeOn(jobScheduler)

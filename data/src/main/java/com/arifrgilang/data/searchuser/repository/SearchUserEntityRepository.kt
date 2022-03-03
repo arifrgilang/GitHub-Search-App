@@ -14,9 +14,6 @@ import com.arifrgilang.data.util.SourceType
 import com.arifrgilang.domain.searchuser.model.User
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -24,15 +21,13 @@ import javax.inject.Inject
  * @version SearchUserEntityRepository, v 2.0 25/02/22 11.14 by Arif R Gilang P
  */
 class SearchUserEntityRepository @Inject constructor(
-    private val searchUserRepoFactory: SearchUserEntityDataFactory,
-    private val postScheduler: Scheduler = AndroidSchedulers.mainThread(),
-    private val jobScheduler: Scheduler = Schedulers.io()
+    private val searchUserRepoFactory: SearchUserEntityDataFactory
 ) : SearchUserRepository {
 
-    private val localRepository =
-        searchUserRepoFactory.createSearchUserEntityData(SourceType.PERSISTENCE)
+//    private val localRepository =
+//        searchUserRepoFactory.createSearchUserEntityData(SourceType.PERSISTENCE)
 
-    private val remoteRepository =
+    private fun getRemoteRepository() =
         searchUserRepoFactory.createSearchUserEntityData(SourceType.NETWORK)
 
     override fun searchUsers(username: String, refresh: Boolean): Observable<List<User>> {
@@ -45,21 +40,21 @@ class SearchUserEntityRepository @Inject constructor(
         return getUserFromRemote(username)
     }
 
-    private fun searchUsersFromLocal(
-        username: String
-    ): Observable<List<User>> {
-        return localRepository.searchUsers(username).flatMap { list ->
-            Observable.fromIterable(list)
-                .map { it.toDomain() }
-                .toList()
-                .toObservable()
-        }
-    }
+//    private fun searchUsersFromLocal(
+//        username: String
+//    ): Observable<List<User>> {
+//        return localRepository.searchUsers(username).flatMap { list ->
+//            Observable.fromIterable(list)
+//                .map { it.toDomain() }
+//                .toList()
+//                .toObservable()
+//        }
+//    }
 
     private fun searchUsersFromRemote(
         username: String
     ): Observable<List<User>> {
-        return remoteRepository.searchUsers(username).flatMap { list ->
+        return getRemoteRepository().searchUsers(username).flatMap { list ->
             Observable.fromIterable(list)
                 .map { it.toDomain() }
                 .toList()
@@ -67,15 +62,15 @@ class SearchUserEntityRepository @Inject constructor(
         }
     }
 
-    private fun getUserFromLocal(
-        username: String
-    ): Observable<User> {
-        return localRepository.getUserProfile(username).map { it.toDomain() }
-    }
+//    private fun getUserFromLocal(
+//        username: String
+//    ): Observable<User> {
+//        return localRepository.getUserProfile(username).map { it.toDomain() }
+//    }
 
     private fun getUserFromRemote(
         username: String
     ): Observable<User> {
-        return remoteRepository.getUserProfile(username).map { it.toDomain() }
+        return getRemoteRepository().getUserProfile(username).map { it.toDomain() }
     }
 }

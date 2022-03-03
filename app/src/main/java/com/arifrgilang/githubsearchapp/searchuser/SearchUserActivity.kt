@@ -12,11 +12,13 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.arifrgilang.data.di.UseCaseModule
 import com.arifrgilang.githubsearchapp.R
 import com.arifrgilang.githubsearchapp.base.BaseBindingActivity
 import com.arifrgilang.githubsearchapp.databinding.ActivitySearchUserBinding
 import com.arifrgilang.githubsearchapp.di.component.DaggerApplicationComponent
 import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
+import com.arifrgilang.githubsearchapp.di.module.SearchUserModule
 import com.arifrgilang.githubsearchapp.searchuser.adapter.SearchUserAdapter
 import com.arifrgilang.githubsearchapp.searchuser.model.UserModel
 import com.arifrgilang.githubsearchapp.util.CustomRvMargin
@@ -34,9 +36,7 @@ class SearchUserActivity
 
     override fun contentView(): Int = R.layout.activity_search_user
 
-    override fun setupData(savedInstanceState: Bundle?) {
-
-    }
+    override fun setupData(savedInstanceState: Bundle?) {}
 
     override fun setupView() {
         initInjector()
@@ -46,7 +46,7 @@ class SearchUserActivity
             performSearchUser(refresh = true)
         }
         binding.etSearchUser.setOnEditorActionListener { _, i, _ ->
-            if(i == EditorInfo.IME_ACTION_SEARCH) {
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
                 performSearchUser(refresh = false)
             }
             false
@@ -56,6 +56,8 @@ class SearchUserActivity
     private fun initInjector() {
         DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(application))
+            .searchUserModule(SearchUserModule())
+            .useCaseModule(UseCaseModule())
             .build()
             .inject(this)
     }
@@ -76,7 +78,7 @@ class SearchUserActivity
 
     private fun performSearchUser(refresh: Boolean) {
         val searchQuery = binding.etSearchUser.text.toString()
-        if(searchQuery.isNotEmpty()){
+        if (searchQuery.isNotEmpty()) {
             binding.rvSearchUsers.isVisible = false
             binding.tvSearchNoItem.isVisible = false
             presenter.searchUsers(searchQuery)
@@ -84,7 +86,7 @@ class SearchUserActivity
     }
 
     override fun setUserResult(users: List<UserModel>) {
-        if(users.isEmpty()) {
+        if (users.isEmpty()) {
             binding.tvSearchNoItem.isVisible = true
             binding.rvSearchUsers.isVisible = false
         } else {
