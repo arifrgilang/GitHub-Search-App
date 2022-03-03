@@ -32,6 +32,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding true
+    }
+//    kapt {
+//        generateStubs = true
+//    }
 }
 
 dependencies {
@@ -51,11 +57,16 @@ dependencies {
     implementation appDependencies.dagger
     implementation appDependencies.rxJava
     implementation appDependencies.rxAndroid
+    implementation appDependencies.mmkv
+    implementation appDependencies.gson
+    implementation appDependencies.retrofit
+    implementation appDependencies.okHttp
 
-    annotationProcessor appDependencies.daggerCompiler
-
+    kapt appDependencies.daggerCompiler
     kapt appDependencies.glideCompiler
 
+    testImplementation appDependencies.archCoreTesting
+    testImplementation appDependencies.mockk
     testImplementation appDependencies.junit
     testImplementation appDependencies.mockito
     testImplementation appDependencies.powerMock
