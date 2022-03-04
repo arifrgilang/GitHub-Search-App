@@ -105,7 +105,7 @@ class SearchUserActivity : BaseBindingActivity<ActivitySearchUserBinding>() {
         if (searchQuery.isNotEmpty()) {
             binding.rvSearchUsers.isVisible = false
             binding.tvSearchNoItem.isVisible = false
-            presenter.searchUsers(searchQuery)
+            presenter.searchUsers(searchQuery, refresh)
         }
     }
 
