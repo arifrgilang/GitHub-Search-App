@@ -6,8 +6,10 @@
  *
  */
 
-package com.arifrgilang.domain.searchuser.interactor
+package com.arifrgilang.domain.searchuser.interactor.searchuser
 
+import com.arifrgilang.domain.searchuser.interactor.SearchUsersByUsername
+import com.arifrgilang.domain.searchuser.interactor.base.RxJavaUseCaseTesting
 import com.arifrgilang.domain.searchuser.model.SearchUsersRequest
 import com.arifrgilang.domain.searchuser.model.User
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
@@ -15,50 +17,37 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Observable
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.schedulers.Schedulers
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 /**
  * @author Arif R Gilang P (arif.rhizky@dana.id)
  * @version GetUsersByUsernameTest, v 2.0 03/03/22 13.50 by Arif R Gilang P
  */
-class SearchUsersByUsernameTest {
+class SearchUsersByUsernameTest : RxJavaUseCaseTesting() {
 
     private var searchUserRepository = mockk<SearchUserRepository>(relaxed = true)
-    private var getUsersByUsername = SearchUsersByUsername(searchUserRepository)
-
-    @Before
-    fun setUp() {
-        RxAndroidPlugins.setMainThreadSchedulerHandler { Schedulers.trampoline() }
-        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
-    }
+    private var searchUsersByUsername = SearchUsersByUsername(searchUserRepository)
 
     @Test
-    fun buildUseCaseObservable_shouldReturn_users() {
+    fun `buildUseCase should invoke searchUserRepository#searchUsers`() {
         val requestInfo = SearchUsersByUsername.Params.createSearchUserRequest(
             SearchUsersRequest("arifrgilang", true)
         )
         val searchUserResult = mockSearchUsersResult()
-
         //given
         every { searchUserRepository.searchUsers(any(), any()) } returns Observable.just(
             searchUserResult
         )
-
         //when
-        getUsersByUsername.buildUseCase(requestInfo)
-
+        searchUsersByUsername.buildUseCase(requestInfo)
         //then
         verify { searchUserRepository.searchUsers(any(), any()) }
     }
 
     @After
     fun tearDown() {
-        getUsersByUsername.dispose()
+        searchUsersByUsername.dispose()
     }
 
     private fun mockSearchUsersResult() = arrayListOf(
