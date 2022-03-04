@@ -24,8 +24,7 @@ import com.arifrgilang.githubsearchapp.util.CustomRvMargin
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchUserActivity
-    : BaseBindingActivity<ActivitySearchUserBinding>() {
+class SearchUserActivity : BaseBindingActivity<ActivitySearchUserBinding>() {
 
     @Inject
     lateinit var rvAdapter: SearchUserAdapter

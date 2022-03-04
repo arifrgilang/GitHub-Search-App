@@ -11,9 +11,7 @@ package com.arifrgilang.data.searchuser.repository
 import com.arifrgilang.data.searchuser.model.UserEntity
 import com.arifrgilang.data.searchuser.repository.source.SearchUserEntityData
 import com.arifrgilang.data.searchuser.repository.source.SearchUserEntityDataFactory
-import com.arifrgilang.data.searchuser.repository.source.network.NetworkSearchUserEntityData
 import com.arifrgilang.data.util.SourceType
-import com.arifrgilang.domain.searchuser.model.User
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -40,18 +38,9 @@ class SearchUserEntityRepositoryTest() {
 
     @Test
     fun searchUsersFromRepository_shouldUseNetworkRepository() {
-        val listUsers = arrayListOf(
-            UserEntity(
-                1,
-                "arifrgilang",
-                "Arif R Gilang",
-                "https://avatars.githubusercontent.com/u/36944464?v=4",
-                "Android Developer", 33, 134, "Bandung - Jatinangor",
-                "arifrgilang@gmail.com"
-            )
-        )
+        val searchUsersResult = mockSearchUsersResult()
         //given
-        every { networkRepository.searchUsers(any()) } returns Observable.just(listUsers)
+        every { networkRepository.searchUsers(any()) } returns Observable.just(searchUsersResult)
 
         //when
         repository.searchUsers("arifrgilang", true)
@@ -60,4 +49,15 @@ class SearchUserEntityRepositoryTest() {
         verify { networkRepository.searchUsers(any()) }
         verify(exactly = 0) { mockRepository.searchUsers(any()) }
     }
+
+    private fun mockSearchUsersResult() = arrayListOf(
+        UserEntity(
+            1,
+            "arifrgilang",
+            "Arif R Gilang",
+            "https://avatars.githubusercontent.com/u/36944464?v=4",
+            "Android Developer", 33, 134, "Bandung - Jatinangor",
+            "arifrgilang@gmail.com"
+        )
+    )
 }

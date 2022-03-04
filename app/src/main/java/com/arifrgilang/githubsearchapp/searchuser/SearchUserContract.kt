@@ -19,7 +19,7 @@ import com.arifrgilang.githubsearchapp.searchuser.model.UserModel
 interface SearchUserContract {
 
     interface Presenter : BasePresenter {
-        fun setViewPresenter(viewPresenter: SearchUserContract.View)
+
         fun searchUsers(username: String)
     }
 
