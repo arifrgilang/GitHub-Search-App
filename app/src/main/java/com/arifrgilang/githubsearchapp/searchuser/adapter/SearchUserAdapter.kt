@@ -33,6 +33,11 @@ class SearchUserAdapter @Inject constructor(
 
         override fun onBind(model: UserModel) {
             view.user = model
+            model.username?.let { username ->
+                view.cvItemUser.setOnClickListener {
+                    getCallback()?.onRecyclerItemClicked(username)
+                }
+            }
         }
     }
 }

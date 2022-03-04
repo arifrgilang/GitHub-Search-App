@@ -12,14 +12,15 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.arifrgilang.githubsearchapp.GitHubSearchApp
 import com.arifrgilang.githubsearchapp.R
 import com.arifrgilang.githubsearchapp.base.BaseBindingActivity
+import com.arifrgilang.githubsearchapp.base.BaseRecyclerAdapter
 import com.arifrgilang.githubsearchapp.databinding.ActivitySearchUserBinding
 import com.arifrgilang.githubsearchapp.di.component.DaggerSearchUsersComponent
 import com.arifrgilang.githubsearchapp.di.module.SearchUserModule
 import com.arifrgilang.githubsearchapp.searchuser.adapter.SearchUserAdapter
 import com.arifrgilang.githubsearchapp.searchuser.model.UserModel
+import com.arifrgilang.githubsearchapp.userdetail.UserDetailActivity
 import com.arifrgilang.githubsearchapp.util.CustomRvMargin
 import timber.log.Timber
 import javax.inject.Inject
@@ -52,7 +53,7 @@ class SearchUserActivity : BaseBindingActivity<ActivitySearchUserBinding>() {
 
     private fun initInjector() {
         DaggerSearchUsersComponent.builder()
-            .applicationComponent((application as GitHubSearchApp).getApplicationComponent())
+            .applicationComponent(getApplicationComponent())
             .searchUserModule(getSearchUserModule())
             .build()
             .inject(this)
@@ -89,16 +90,31 @@ class SearchUserActivity : BaseBindingActivity<ActivitySearchUserBinding>() {
     private fun initRecyclerView() {
         binding.rvSearchUsers.apply {
             layoutManager = LinearLayoutManager(this@SearchUserActivity)
-            adapter = rvAdapter
-            addItemDecoration(
-                CustomRvMargin(
-                    this@SearchUserActivity,
-                    16,
-                    CustomRvMargin.LINEAR_VERTICAL
-                )
-            )
+            adapter = rvAdapter.apply {
+                setOnItemClickListener(provideOnItemClickListener())
+            }
+            addItemDecoration(provideCustomMargin())
         }
     }
+
+    private fun provideOnItemClickListener() =
+        object : BaseRecyclerAdapter.AdapterOnClick {
+            override fun onRecyclerItemClicked(extra: String) {
+                startActivity(
+                    UserDetailActivity.createIntent(
+                        this@SearchUserActivity,
+                        extra
+                    )
+                )
+            }
+        }
+
+    private fun provideCustomMargin() =
+        CustomRvMargin(
+            this@SearchUserActivity,
+            16,
+            CustomRvMargin.LINEAR_VERTICAL
+        )
 
     private fun performSearchUser(refresh: Boolean) {
         val searchQuery = binding.etSearchUser.text.toString()

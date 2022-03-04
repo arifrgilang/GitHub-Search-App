@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AnstudProjects/GitHubSearchApp/app/src/main/res/layout/activity_main.xml" value="0.20052083333333334" />
+        <entry key="app/src/main/res/layout/activity_search_user.xml" value="0.14159067882472137" />
+        <entry key="app/src/main/res/layout/activity_user_detail.xml" value="0.41128845214843757" />
+        <entry key="app/src/main/res/layout/item_user.xml" value="0.14159067882472137" />
       </map>
     </option>
   </component>
