@@ -20,7 +20,7 @@ interface SearchUserContract {
 
     interface Presenter : BasePresenter {
 
-        fun searchUsers(username: String)
+        fun searchUsers(username: String, refresh: Boolean)
     }
 
     interface View : BaseView {

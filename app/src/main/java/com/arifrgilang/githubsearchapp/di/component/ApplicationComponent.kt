@@ -9,6 +9,7 @@
 package com.arifrgilang.githubsearchapp.di.component
 
 import android.content.Context
+import com.arifrgilang.data.di.DatabaseModule
 import com.arifrgilang.data.di.NetworkModule
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
 import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
@@ -24,7 +25,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         ApplicationModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        DatabaseModule::class
     ]
 )
 interface ApplicationComponent {

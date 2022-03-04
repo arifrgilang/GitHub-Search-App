@@ -11,6 +11,7 @@ package com.arifrgilang.data.searchuser.repository.source.local.dao
 import androidx.room.*
 import com.arifrgilang.data.network.Constant.Database
 import com.arifrgilang.data.searchuser.model.UserEntity
+import io.reactivex.Observable
 
 /**
  * @author Arif R Gilang P (arif.rhizky@dana.id)
@@ -20,10 +21,10 @@ import com.arifrgilang.data.searchuser.model.UserEntity
 interface UserEntityDao {
 
     @Query("SELECT * FROM ${Database.Table.USER} WHERE username LIKE '%' || :username || '%'")
-    fun searchUsers(username: String): List<UserEntity>
+    fun searchUsers(username: String): Observable<List<UserEntity>>
 
     @Query("SELECT * FROM ${Database.Table.USER} WHERE username=:username")
-    fun getUser(username: String): UserEntity
+    fun getUser(username: String): Observable<UserEntity>
 
     @Update
     fun updateUser(user: UserEntity)

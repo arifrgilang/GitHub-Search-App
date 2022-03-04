@@ -22,11 +22,11 @@ class SearchUserPresenter @Inject constructor(
     private val searchUsersByUsername: SearchUsersByUsername
 ) : SearchUserContract.Presenter {
 
-    override fun searchUsers(username: String) {
+    override fun searchUsers(username: String, refresh: Boolean) {
         view.showProgress()
         searchUsersByUsername.execute(
             SearchUsersByUsername.Params.createSearchUserRequest(
-                SearchUsersRequest(username, true)
+                SearchUsersRequest(username, refresh)
             ),
             onSuccess = { usersResult ->
                 view.setUserResult(usersResult.map { it.toModel() })
