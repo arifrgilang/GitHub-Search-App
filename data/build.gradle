@@ -53,9 +53,12 @@ dependencies {
     implementation dataDependencies.rxJava
     implementation dataDependencies.rxAndroid
     implementation dataDependencies.roomKtx
-    implementation dataDependencies.roomRuntime
     implementation dataDependencies.mmkv
     implementation dataDependencies.retrofitRxJava
+    implementation dataDependencies.roomRxJava2
+    implementation dataDependencies.timber
+
+    api dataDependencies.roomRuntime
 
     kapt dataDependencies.daggerCompiler
     kapt dataDependencies.roomKapt

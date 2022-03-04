@@ -14,7 +14,9 @@ import com.arifrgilang.data.searchuser.repository.source.SearchUserEntityData
 import com.arifrgilang.data.searchuser.repository.source.local.dao.UserEntityDao
 import com.arifrgilang.data.util.DataStoreHelper
 import com.arifrgilang.domain.searchuser.model.User
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -27,24 +29,29 @@ class PersistenceSearchUserEntityData @Inject constructor(
 ) : SearchUserEntityData {
 
     override fun searchUsers(username: String): Observable<List<UserEntity>> {
-        return Observable.defer {
-            val result = userEntityDao.searchUsers(username)
-            Observable.just(result)
-        }
+        return userEntityDao.searchUsers(username)
+//        return Observable.defer {
+//            val result = userEntityDao.searchUsers(username)
+//            Observable.just(result)
+//        }
     }
 
     override fun getUserProfile(username: String): Observable<UserEntity> {
-        return Observable.defer {
-            val result = userEntityDao.getUser(username)
-            Observable.just(result)
-        }
+        return userEntityDao.getUser(username).subscribeOn(Schedulers.io())
+//        return Observable.defer {
+//            val result = userEntityDao.getUser(username)
+//            Observable.just(result)
+//        }
     }
 
     fun insertAllAndSearchUsers(
         username: String,
         users: List<User>
     ): Observable<List<UserEntity>> {
-        userEntityDao.insertAll(users.map { it.toEntity() })
+        Completable.fromRunnable {
+            userEntityDao.insertAll(users.map { it.toEntity() })
+        }.subscribeOn(Schedulers.io()).subscribe()
+
         setLastCacheTime(DataStoreHelper.KEY_SEARCH_USERS, System.currentTimeMillis())
         return searchUsers(username)
     }
@@ -52,7 +59,10 @@ class PersistenceSearchUserEntityData @Inject constructor(
     fun updateUser(
         user: User
     ): Observable<UserEntity> {
-        userEntityDao.updateUser(user.toEntity())
+        Completable.fromRunnable {
+            userEntityDao.updateUser(user.toEntity())
+        }.subscribeOn(Schedulers.io()).subscribe()
+
         setLastCacheTime(DataStoreHelper.KEY_GET_USER, System.currentTimeMillis())
         return getUserProfile(user.username!!)
     }

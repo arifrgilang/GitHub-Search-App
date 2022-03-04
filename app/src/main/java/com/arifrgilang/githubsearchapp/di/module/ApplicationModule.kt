@@ -31,43 +31,18 @@ import javax.inject.Singleton
 @Module
 class ApplicationModule(private val app: Application) {
 
-    @Provides
     @Singleton
+    @Provides
     fun provideContext(): Context = app
 
-    @Provides
     @Singleton
-    fun provideUserEntityDataFactory(
-//        localRepository: PersistenceSearchUserEntityData,
-        mockRepository: MockSearchUserEntityData,
-        remoteRepository: NetworkSearchUserEntityData
-    ) = SearchUserEntityDataFactory(
-//        localRepository,
-        mockRepository,
-        remoteRepository
-    )
-//
-//    @Provides
-//    @Singleton
-//    fun provideLocalRepository(
-//        userEntityDao: UserEntityDao,
-//        dataStoreHelper: DataStoreHelper
-//    ) = PersistenceSearchUserEntityData(userEntityDao, dataStoreHelper)
-//
-//    @Provides
-//    @Singleton
-//    fun provideMockRepository() = MockSearchUserEntityData()
-//
-//    @Provides
-//    @Singleton
-//    fun provideRemoteRepository(
-//        gitHubApi: GitHubAPI
-//    ) = NetworkSearchUserEntityData(gitHubApi)
-//
     @Provides
+    fun provideApplication(): Application = app
+
     @Singleton
+    @Provides
     fun provideSearchUserRepository(
-        searchUserRepositoryFactory: SearchUserEntityDataFactory
+        searchUserEntityRepository: SearchUserEntityRepository
     ): SearchUserRepository =
-        SearchUserEntityRepository(searchUserRepositoryFactory)
+        searchUserEntityRepository
 }

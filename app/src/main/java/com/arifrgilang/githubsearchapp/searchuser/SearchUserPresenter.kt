@@ -8,7 +8,8 @@
 
 package com.arifrgilang.githubsearchapp.searchuser
 
-import com.arifrgilang.domain.searchuser.interactor.GetUsersByUsername
+import com.arifrgilang.domain.searchuser.interactor.SearchUsersByUsername
+import com.arifrgilang.domain.searchuser.model.SearchUsersRequest
 import com.arifrgilang.githubsearchapp.searchuser.mapper.toModel
 import javax.inject.Inject
 
@@ -17,19 +18,16 @@ import javax.inject.Inject
  * @version SearchUserPresenter, v 2.0 2/24/2022 12:59 PM by Arif R Gilang P
  */
 class SearchUserPresenter @Inject constructor(
-    private val getUsersByUsername: GetUsersByUsername
+    private val view: SearchUserContract.View,
+    private val searchUsersByUsername: SearchUsersByUsername
 ) : SearchUserContract.Presenter {
 
-    lateinit var view: SearchUserContract.View
-
-    override fun setViewPresenter(viewPresenter: SearchUserContract.View) {
-        view = viewPresenter
-    }
-
-    override fun searchUsers(username: String) {
+    override fun searchUsers(username: String, refresh: Boolean) {
         view.showProgress()
-        getUsersByUsername.execute(
-            GetUsersByUsername.Params(username, true),
+        searchUsersByUsername.execute(
+            SearchUsersByUsername.Params.createSearchUserRequest(
+                SearchUsersRequest(username, refresh)
+            ),
             onSuccess = { usersResult ->
                 view.setUserResult(usersResult.map { it.toModel() })
                 view.dismissProgress()
@@ -50,6 +48,6 @@ class SearchUserPresenter @Inject constructor(
     }
 
     override fun destroy() {
-        getUsersByUsername.dispose()
+        searchUsersByUsername.dispose()
     }
 }

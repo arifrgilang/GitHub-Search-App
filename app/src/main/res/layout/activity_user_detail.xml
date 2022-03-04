@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /*
+  ~   DANA.id
+  ~   PT. Espay Debit Indonesia Koe.
+  ~   Copyright (c) 2017-2022. All Rights Reserved.
+  ~  */
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/slUserDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".userdetail.UserDetailActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUserDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivFollower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+
+                android:src="@drawable/ic_follower"
+                app:layout_constraintBottom_toTopOf="@id/ivLocation"
+                app:layout_constraintStart_toStartOf="@id/tvBio"
+                app:layout_constraintTop_toBottomOf="@id/tvBio" />
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                android:src="@drawable/ic_location"
+                app:layout_constraintStart_toStartOf="@id/ivFollower"
+                app:layout_constraintTop_toBottomOf="@id/ivFollower" />
+
+            <LinearLayout
+                android:id="@+id/llFollower"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/ivFollower"
+                app:layout_constraintEnd_toEndOf="@id/tvBio"
+                app:layout_constraintStart_toEndOf="@id/ivFollower"
+                app:layout_constraintTop_toTopOf="@id/ivFollower">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:text="@{user.followers + ` Followers - ` + user.following + ` Following`}"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                android:text="@{user.location}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/ivLocation"
+                app:layout_constraintEnd_toEndOf="@id/llFollower"
+                app:layout_constraintStart_toEndOf="@id/ivLocation"
+                app:layout_constraintTop_toTopOf="@id/ivLocation" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+
+                android:text="@{`@`+ user.username}"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+            <TextView
+                android:id="@+id/tvBio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+
+                android:text="@{user.bio}"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/tvUsername"
+                app:layout_constraintStart_toStartOf="@id/tvUsername"
+                app:layout_constraintTop_toBottomOf="@id/tvUsername" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+
+                android:text="@{user.name}"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUser" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/ivUser"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_margin="16dp"
+
+                android:imageUrl="@{user.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.arifrgilang.githubsearchapp.searchuser.model.UserModel" />
+    </data>
+</layout>

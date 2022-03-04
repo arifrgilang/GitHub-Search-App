@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.arifrgilang.githubsearchapp.GitHubSearchApp
 
 /**
  * Created by arifrgilang on 4/14/2021
@@ -24,4 +25,6 @@ abstract class BaseBindingActivity<T : ViewDataBinding> : AppCompatActivity() {
         setupData(savedInstanceState)
         setupView()
     }
+
+    protected fun getApplicationComponent() = (application as GitHubSearchApp).getApplicationComponent()
 }

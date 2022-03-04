@@ -9,11 +9,12 @@
 package com.arifrgilang.githubsearchapp
 
 import android.app.Application
+import com.arifrgilang.data.di.DatabaseModule
 import com.arifrgilang.data.di.NetworkModule
-import com.arifrgilang.data.di.UseCaseModule
 import com.arifrgilang.githubsearchapp.di.component.ApplicationComponent
 import com.arifrgilang.githubsearchapp.di.component.DaggerApplicationComponent
 import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
+import com.tencent.mmkv.MMKV
 import timber.log.Timber
 
 /**
@@ -22,20 +23,22 @@ import timber.log.Timber
  */
 class GitHubSearchApp : Application() {
 
-    lateinit var applicationComponent: ApplicationComponent
+    private lateinit var applicationComponent: ApplicationComponent
+
+    fun getApplicationComponent() = applicationComponent
 
     override fun onCreate() {
         super.onCreate()
         initializeInjector()
         initializeTimber()
-//        initializeMMKV()
+        initializeMMKV()
     }
 
     private fun initializeInjector() {
         applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
             .networkModule(NetworkModule())
-            .useCaseModule(UseCaseModule())
+            .databaseModule(DatabaseModule())
             .build()
     }
 
@@ -45,8 +48,8 @@ class GitHubSearchApp : Application() {
         }
     }
 
-//    private fun initializeMMKV() {
-//        MMKV.initialize(this)
-//    }
+    private fun initializeMMKV() {
+        MMKV.initialize(this)
+    }
 
 }

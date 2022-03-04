@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arifrgilang.githubsearchapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".GitHubSearchApp"
         android:allowBackup="true"
@@ -12,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubSearchApp">
+        <activity
+            android:name=".userdetail.UserDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".searchuser.SearchUserActivity"
             android:exported="true">
@@ -22,5 +23,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
