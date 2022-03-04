@@ -35,9 +35,9 @@ android {
     buildFeatures {
         dataBinding true
     }
-//    kapt {
-//        generateStubs = true
-//    }
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {

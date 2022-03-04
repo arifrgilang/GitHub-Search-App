@@ -10,7 +10,6 @@ package com.arifrgilang.githubsearchapp
 
 import android.app.Application
 import com.arifrgilang.data.di.NetworkModule
-import com.arifrgilang.data.di.UseCaseModule
 import com.arifrgilang.githubsearchapp.di.component.ApplicationComponent
 import com.arifrgilang.githubsearchapp.di.component.DaggerApplicationComponent
 import com.arifrgilang.githubsearchapp.di.module.ApplicationModule
@@ -22,7 +21,7 @@ import timber.log.Timber
  */
 class GitHubSearchApp : Application() {
 
-    lateinit var applicationComponent: ApplicationComponent
+    private lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -35,7 +34,7 @@ class GitHubSearchApp : Application() {
         applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
             .networkModule(NetworkModule())
-            .useCaseModule(UseCaseModule())
+//            .useCaseModule(UseCaseModule())
             .build()
     }
 
@@ -44,6 +43,8 @@ class GitHubSearchApp : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
+
+    fun getApplicationComponent() = applicationComponent
 
 //    private fun initializeMMKV() {
 //        MMKV.initialize(this)
