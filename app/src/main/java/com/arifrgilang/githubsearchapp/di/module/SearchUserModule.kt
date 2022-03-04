@@ -8,16 +8,11 @@
 
 package com.arifrgilang.githubsearchapp.di.module
 
-import android.content.Context
-import com.arifrgilang.domain.searchuser.interactor.GetUsersByUsername
 import com.arifrgilang.githubsearchapp.di.PerActivity
-import com.arifrgilang.githubsearchapp.searchuser.SearchUserActivity
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserContract
 import com.arifrgilang.githubsearchapp.searchuser.SearchUserPresenter
-import com.arifrgilang.githubsearchapp.searchuser.adapter.SearchUserAdapter
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * @author Arif R Gilang P (arif.rhizky@dana.id)

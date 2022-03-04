@@ -8,6 +8,7 @@
 
 package com.arifrgilang.domain.searchuser.interactor
 
+import com.arifrgilang.domain.searchuser.model.SearchUsersRequest
 import com.arifrgilang.domain.searchuser.model.User
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
 import io.mockk.every
@@ -25,10 +26,10 @@ import org.junit.Test
  * @author Arif R Gilang P (arif.rhizky@dana.id)
  * @version GetUsersByUsernameTest, v 2.0 03/03/22 13.50 by Arif R Gilang P
  */
-class GetUsersByUsernameTest {
+class SearchUsersByUsernameTest {
 
     private var searchUserRepository = mockk<SearchUserRepository>(relaxed = true)
-    private var getUsersByUsername = GetUsersByUsername(searchUserRepository)
+    private var getUsersByUsername = SearchUsersByUsername(searchUserRepository)
 
     @Before
     fun setUp() {
@@ -38,21 +39,18 @@ class GetUsersByUsernameTest {
 
     @Test
     fun buildUseCaseObservable_shouldReturn_users() {
-        val userList = arrayListOf(
-            User(
-                1,
-                "arifrgilang",
-                "Arif R Gilang",
-                "https://avatars.githubusercontent.com/u/36944464?v=4",
-                "Android Developer", 33, 134, "Bandung - Jatinangor",
-                "arifrgilang@gmail.com"
-            )
+        val requestInfo = SearchUsersByUsername.Params.createSearchUserRequest(
+            SearchUsersRequest("arifrgilang", true)
         )
+        val searchUserResult = mockSearchUsersResult()
+
         //given
-        every { searchUserRepository.searchUsers(any(), any()) } returns Observable.just(userList)
+        every { searchUserRepository.searchUsers(any(), any()) } returns Observable.just(
+            searchUserResult
+        )
 
         //when
-        getUsersByUsername.buildUseCase(GetUsersByUsername.Params("arifrgilang", true))
+        getUsersByUsername.buildUseCase(requestInfo)
 
         //then
         verify { searchUserRepository.searchUsers(any(), any()) }
@@ -62,5 +60,16 @@ class GetUsersByUsernameTest {
     fun tearDown() {
         getUsersByUsername.dispose()
     }
+
+    private fun mockSearchUsersResult() = arrayListOf(
+        User(
+            1,
+            "arifrgilang",
+            "Arif R Gilang",
+            "https://avatars.githubusercontent.com/u/36944464?v=4",
+            "Android Developer", 33, 134, "Bandung - Jatinangor",
+            "arifrgilang@gmail.com"
+        )
+    )
 
 }

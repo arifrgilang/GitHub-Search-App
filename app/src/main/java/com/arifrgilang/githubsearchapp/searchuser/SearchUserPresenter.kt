@@ -8,7 +8,8 @@
 
 package com.arifrgilang.githubsearchapp.searchuser
 
-import com.arifrgilang.domain.searchuser.interactor.GetUsersByUsername
+import com.arifrgilang.domain.searchuser.interactor.SearchUsersByUsername
+import com.arifrgilang.domain.searchuser.model.SearchUsersRequest
 import com.arifrgilang.githubsearchapp.searchuser.mapper.toModel
 import javax.inject.Inject
 
@@ -18,13 +19,15 @@ import javax.inject.Inject
  */
 class SearchUserPresenter @Inject constructor(
     private val view: SearchUserContract.View,
-    private val getUsersByUsername: GetUsersByUsername
+    private val searchUsersByUsername: SearchUsersByUsername
 ) : SearchUserContract.Presenter {
 
     override fun searchUsers(username: String) {
         view.showProgress()
-        getUsersByUsername.execute(
-            GetUsersByUsername.Params(username, true),
+        searchUsersByUsername.execute(
+            SearchUsersByUsername.Params.createSearchUserRequest(
+                SearchUsersRequest(username, true)
+            ),
             onSuccess = { usersResult ->
                 view.setUserResult(usersResult.map { it.toModel() })
                 view.dismissProgress()
@@ -45,6 +48,6 @@ class SearchUserPresenter @Inject constructor(
     }
 
     override fun destroy() {
-        getUsersByUsername.dispose()
+        searchUsersByUsername.dispose()
     }
 }

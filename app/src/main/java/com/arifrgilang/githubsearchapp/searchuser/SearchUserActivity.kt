@@ -39,7 +39,6 @@ class SearchUserActivity
 
     override fun setupView() {
         initInjector()
-//        presenter.setViewPresenter(this)
         initRecyclerView()
         binding.srlSearch.setOnRefreshListener {
             performSearchUser(refresh = true)
