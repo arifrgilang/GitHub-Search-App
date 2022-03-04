@@ -18,7 +18,6 @@ import com.arifrgilang.domain.searchuser.model.User
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -56,8 +55,8 @@ class SearchUserEntityRepository @Inject constructor(
         refresh: Boolean
     ): Observable<User> {
         val userLocal = getUserFromLocal(username).blockingFirst()
-        return if(!refresh) {
-            if(isCacheTimeExpired(DataStoreHelper.KEY_GET_USER)) {
+        return if (!refresh) {
+            if (isCacheTimeExpired(DataStoreHelper.KEY_GET_USER)) {
                 getUserFromRemote(username)
             } else {
                 Observable.just(userLocal)
@@ -93,13 +92,21 @@ class SearchUserEntityRepository @Inject constructor(
     private fun getUserFromLocal(
         username: String
     ): Observable<User> {
-        return getLocalRepository().getUserProfile(username).map { it.toDomain() }
+        return getLocalRepository().getUserProfile(username)
+            .map { it.toDomain() }
     }
 
     private fun getUserFromRemote(
         username: String
     ): Observable<User> {
-        return getRemoteRepository().getUserProfile(username).map { it.toDomain() }
+        return getRemoteRepository().getUserProfile(username)
+            .map { userResult ->
+                (getLocalRepository() as PersistenceSearchUserEntityData)
+                    .updateUser(userResult.toDomain())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe()
+                userResult.toDomain()
+            }
     }
 
     private fun List<UserEntity>.mapListToDomain() =

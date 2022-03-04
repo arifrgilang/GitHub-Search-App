@@ -2,13 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="user"
-            type="com.arifrgilang.githubsearchapp.searchuser.model.UserModel" />
-    </data>
-
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvItemUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,31 +11,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/ivUser"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:imageUrl="@{user.imageUrl}"
-                
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_margin="8dp" />
-            
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user.username}"
-
-                app:layout_constraintStart_toEndOf="@id/ivUser"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="8dp"
+
+                android:text="@{user.username}"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textSize="16sp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivUser"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/ivUser"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+
+                android:imageUrl="@{user.imageUrl}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.arifrgilang.githubsearchapp.searchuser.model.UserModel" />
+    </data>
 </layout>
