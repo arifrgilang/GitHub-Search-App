@@ -18,6 +18,7 @@ import com.arifrgilang.domain.searchuser.model.User
 import com.arifrgilang.domain.searchuser.repository.SearchUserRepository
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -43,6 +44,7 @@ class SearchUserEntityRepository @Inject constructor(
             if (isCacheTimeExpired(DataStoreHelper.KEY_SEARCH_USERS)) {
                 searchUsersFromRemote(username)
             } else {
+                Timber.d("REPO FROM LOCAL")
                 Observable.just(userLocalList)
             }
         } else {

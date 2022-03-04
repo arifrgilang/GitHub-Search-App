@@ -6,11 +6,11 @@
  *
  */
 
-package com.arifrgilang.githubsearchapp.searchuser
+package com.arifrgilang.githubsearchapp.userdetail
 
 import com.arifrgilang.domain.base.OnErrorCallback
 import com.arifrgilang.domain.base.OnSuccessCallback
-import com.arifrgilang.domain.searchuser.interactor.SearchUsersByUsername
+import com.arifrgilang.domain.searchuser.interactor.GetUserDetail
 import com.arifrgilang.domain.searchuser.model.User
 import io.mockk.every
 import io.mockk.mockk
@@ -20,23 +20,23 @@ import org.junit.Test
 
 /**
  * @author Arif R Gilang P (arif.rhizky@dana.id)
- * @version SearchUserPresenterTest, v 2.0 03/03/22 15.53 by Arif R Gilang P
+ * @version UserDetailPresenterTest, v 2.0 04/03/22 19.05 by Arif R Gilang P
  */
-class SearchUserPresenterTest {
+class UserDetailPresenterTest {
 
-    private val searchUsersByUsername = mockk<SearchUsersByUsername>()
-    private val view = mockk<SearchUserContract.View>(relaxed = true)
-    private val presenter = spyk(SearchUserPresenter(view, searchUsersByUsername))
+    private val getUserDetail = mockk<GetUserDetail>()
+    private val view = mockk<UserDetailContract.View>(relaxed = true)
+    private val presenter = spyk(UserDetailPresenter(view, getUserDetail))
 
     @Test
-    fun `searchUsers shouldCall view#setUserResult when success`() {
-        val searchUserResult = mockSearchUsersResult()
+    fun `getUserDetail shouldCall view#setUserResult when success`() {
+        val userDetailResult = mockUserDetailResult()
         //given
-        every { searchUsersByUsername.execute(any(), any(), any()) } answers {
-            secondArg<OnSuccessCallback<List<User>>>().invoke(searchUserResult)
+        every { getUserDetail.execute(any(), any(), any()) } answers {
+            secondArg<OnSuccessCallback<User>>().invoke(userDetailResult)
         }
         //when
-        presenter.searchUsers("arifrgilang", true)
+        presenter.getUserDetail("arifrgilang", true)
         //then
         verify {
             view.showProgress()
@@ -46,14 +46,14 @@ class SearchUserPresenterTest {
     }
 
     @Test
-    fun `searchUsers shouldCall view#onError when error`() {
-        val searchUserResult = mockSearchUsersResult()
+    fun `getUserDetail shouldCall view#onError when failed`() {
+        val userDetailResult = mockUserDetailResult()
         //given
-        every { searchUsersByUsername.execute(any(), any(), any()) } answers {
+        every { getUserDetail.execute(any(), any(), any()) } answers {
             thirdArg<OnErrorCallback>().invoke(Throwable("error"))
         }
         //when
-        presenter.searchUsers("arifrgilang", true)
+        presenter.getUserDetail("arifrgilang", true)
         //then
         verify {
             view.showProgress()
@@ -62,7 +62,7 @@ class SearchUserPresenterTest {
         }
     }
 
-    private fun mockSearchUsersResult() = arrayListOf(
+    private fun mockUserDetailResult() =
         User(
             1,
             "arifrgilang",
@@ -71,5 +71,4 @@ class SearchUserPresenterTest {
             "Android Developer", 33, 134, "Bandung - Jatinangor",
             "arifrgilang@gmail.com"
         )
-    )
 }
